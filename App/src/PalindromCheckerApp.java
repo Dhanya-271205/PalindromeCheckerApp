@@ -1,45 +1,59 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 /**
- * PalindromeChecker App - UC7
- * Optimized check using a Deque (Double-Ended Queue).
+ * PalindromeChecker App - UC8
+ * Uses a Singly Linked List with mid-point reversal.
  */
 public class PalindromCheckerApp {
 
+    // Helper Node class for the Singly Linked List
+    static class Node {
+        char data;
+        Node next;
+        Node(char data) { this.data = data; }
+    }
+
     public static void main(String[] args) {
-        System.out.println("--- Palindrome Checker v1.0 (Deque Method) ---");
+        System.out.println("--- Palindrome Checker v1.0 (Linked List) ---");
+        String input = "level";
 
-        String input = "racecar";
-
-        // UC7: Initialize a Deque
-        // ArrayDeque is a highly efficient implementation of the Deque interface
-        Deque<Character> deque = new ArrayDeque<>();
-
-        // 1. Insert all characters into the deque
-        for (char c : input.toCharArray()) {
-            deque.addLast(c);
+        // 1. Convert string to Singly Linked List
+        Node head = new Node(input.charAt(0));
+        Node current = head;
+        for (int i = 1; i < input.length(); i++) {
+            current.next = new Node(input.charAt(i));
+            current = current.next;
         }
 
+        // 2. Find the middle using Fast and Slow pointers
+        Node slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // 3. Reverse the second half of the list in-place
+        Node prev = null;
+        Node curr = slow;
+        while (curr != null) {
+            Node nextNode = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+
+        // 4. Compare the first half and the reversed second half
+        Node firstHalf = head;
+        Node secondHalf = prev; // 'prev' is the new head of the reversed half
         boolean isPalindrome = true;
 
-        // 2. Comparison Logic: Remove from both ends simultaneously
-        // A palindrome must have matching front and rear characters
-        while (deque.size() > 1) {
-            char front = deque.removeFirst();
-            char rear = deque.removeLast();
-
-            if (front != rear) {
+        while (secondHalf != null) {
+            if (firstHalf.data != secondHalf.data) {
                 isPalindrome = false;
                 break;
             }
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
         }
 
-        // 3. Display Result
-        if (isPalindrome) {
-            System.out.println("The word '" + input + "' is a Palindrome.");
-        } else {
-            System.out.println("The word '" + input + "' is NOT a Palindrome.");
-        }
+        System.out.println("The word '" + input + "' is a Palindrome: " + isPalindrome);
     }
 }
