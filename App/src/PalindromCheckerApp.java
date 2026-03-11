@@ -1,76 +1,31 @@
-<<<<<<< HEAD
-import java.util.Stack;
-
 /**
- * PalindromeChecker App - UC5
- * Demonstrates the use of the Stack data structure (LIFO).
-=======
-/**
- * PalindromeChecker App - UC9
- * Demonstrates Palindrome check using Recursion.
->>>>>>> UC9
+ * PalindromeChecker App - UC10
+ * Normalizes input to ignore case, spaces, and non-alphanumeric characters.
  */
 public class PalindromCheckerApp {
 
     public static void main(String[] args) {
-<<<<<<< HEAD
-        // UC1: Welcome Message
-        System.out.println("--- Palindrome Checker v1.0 (Stack Method) ---");
+        System.out.println("--- Palindrome Checker v1.0 (Robust Preprocessing) ---");
 
-        String input = "radar"; // Hardcoded for logic demonstration
+        // Test string with mixed case and spaces
+        String input = "A man a plan a canal Panama";
 
-        // UC5: Initializing the Stack data structure
-        Stack<Character> stack = new Stack<>();
+        // UC10: Normalization
+        // 1. Convert to lowercase
+        // 2. Use Regular Expression (Regex) to replace all non-alphanumeric characters with nothing
+        // [^a-zA-Z0-0] means "anything that is NOT a letter or a number"
+        String normalized = input.toLowerCase().replaceAll("[^a-z0-9]", "");
 
-        // 1. Push Operation: Store characters in the stack
-        for (int i = 0; i < input.length(); i++) {
-            stack.push(input.charAt(i));
-        }
+        System.out.println("Original:  " + input);
+        System.out.println("Normalized: " + normalized);
 
-        // 2. Pop Operation: Build a reversed string
-        // Since Stack is LIFO, popping gives the string in reverse
-        StringBuilder reversed = new StringBuilder();
-        while (!stack.isEmpty()) {
-            reversed.append(stack.pop());
-        }
+        // Check using simple reversal (or any previous technique)
+        String reversed = new StringBuilder(normalized).reverse().toString();
 
-        // 3. Compare and Display Result
-        System.out.println("Original: " + input);
-        System.out.println("Reversed: " + reversed.toString());
-
-        if (input.equalsIgnoreCase(reversed.toString())) {
-            System.out.println("Result: It is a Palindrome.");
+        if (normalized.equals(reversed)) {
+            System.out.println("RESULT: Success! It is a palindrome.");
         } else {
-            System.out.println("Result: It is NOT a Palindrome.");
+            System.out.println("RESULT: Failure! Not a palindrome.");
         }
-=======
-        System.out.println("--- Palindrome Checker v1.0 (Recursion) ---");
-
-        String input = "malayalam";
-
-        // Initial call to the recursive function
-        boolean result = isPalindrome(input);
-
-        System.out.println("The word '" + input + "' is a Palindrome: " + result);
-    }
-
-    /**
-     * Recursive method to check palindrome logic.
-     */
-    public static boolean isPalindrome(String str) {
-        // Base Condition 1: If string has 0 or 1 characters, it's a palindrome
-        if (str.length() <= 1) {
-            return true;
-        }
-
-        // Check if the first and last characters match
-        if (str.charAt(0) == str.charAt(str.length() - 1)) {
-            // Recursive Call: Check the substring excluding the first and last characters
-            return isPalindrome(str.substring(1, str.length() - 1));
-        }
-
-        // Base Condition 2: Characters don't match
-        return false;
->>>>>>> UC9
     }
 }
