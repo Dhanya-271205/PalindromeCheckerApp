@@ -1,31 +1,40 @@
 /**
- * PalindromeChecker App - UC10
- * Normalizes input to ignore case, spaces, and non-alphanumeric characters.
+ * PalindromeChecker App - UC11
+ * Uses Encapsulation to provide a reusable Palindrome Service.
  */
+
+// 1. The Service Class (Encapsulation)
+class PalindromeService {
+
+    /**
+     * Public method to expose logic to other parts of the app.
+     * This method handles normalization and validation.
+     */
+    public boolean checkPalindrome(String text) {
+        if (text == null) return false;
+
+        // Internal logic hidden from the user
+        String cleanText = text.toLowerCase().replaceAll("[^a-z0-9]", "");
+        String reversed = new StringBuilder(cleanText).reverse().toString();
+
+        return cleanText.equals(reversed);
+    }
+}
+
+// 2. The Main Application Class
 public class PalindromCheckerApp {
 
     public static void main(String[] args) {
-        System.out.println("--- Palindrome Checker v1.0 (Robust Preprocessing) ---");
+        System.out.println("--- Palindrome Checker v1.0 (OOP Design) ---");
 
-        // Test string with mixed case and spaces
-        String input = "A man a plan a canal Panama";
+        // Instantiate the service object
+        PalindromeService service = new PalindromeService();
 
-        // UC10: Normalization
-        // 1. Convert to lowercase
-        // 2. Use Regular Expression (Regex) to replace all non-alphanumeric characters with nothing
-        // [^a-zA-Z0-0] means "anything that is NOT a letter or a number"
-        String normalized = input.toLowerCase().replaceAll("[^a-z0-9]", "");
+        // Use the service method
+        String testCase = "Was it a car or a cat I saw?";
+        boolean isPalindrome = service.checkPalindrome(testCase);
 
-        System.out.println("Original:  " + input);
-        System.out.println("Normalized: " + normalized);
-
-        // Check using simple reversal (or any previous technique)
-        String reversed = new StringBuilder(normalized).reverse().toString();
-
-        if (normalized.equals(reversed)) {
-            System.out.println("RESULT: Success! It is a palindrome.");
-        } else {
-            System.out.println("RESULT: Failure! Not a palindrome.");
-        }
+        System.out.println("Input: " + testCase);
+        System.out.println("Is Palindrome: " + isPalindrome);
     }
 }
