@@ -1,41 +1,41 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
- * PalindromeChecker App - UC6
- * Comparison of Queue (FIFO) and Stack (LIFO).
+ * PalindromeChecker App - UC7
+ * Optimized check using a Deque (Double-Ended Queue).
  */
-public class PalindromeApp {
+public class PalindromCheckerApp {
 
     public static void main(String[] args) {
-        System.out.println("--- Palindrome Checker v1.0 (Queue + Stack) ---");
+        System.out.println("--- Palindrome Checker v1.0 (Deque Method) ---");
 
-        String input = "deified";
+        String input = "racecar";
 
-        // Queue follows FIFO (First In First Out)
-        Queue<Character> queue = new LinkedList<>();
-        // Stack follows LIFO (Last In First Out)
-        Stack<Character> stack = new Stack<>();
+        // UC7: Initialize a Deque
+        // ArrayDeque is a highly efficient implementation of the Deque interface
+        Deque<Character> deque = new ArrayDeque<>();
 
-        // Enqueue and Push characters
-        for (int i = 0; i < input.length(); i++) {
-            char c = input.charAt(i);
-            queue.add(c);  // Enqueue
-            stack.push(c); // Push
+        // 1. Insert all characters into the deque
+        for (char c : input.toCharArray()) {
+            deque.addLast(c);
         }
 
         boolean isPalindrome = true;
 
-        // Compare Dequeue vs Pop
-        while (!queue.isEmpty()) {
-            // Dequeue gets the first char, Pop gets the last char
-            if (!queue.remove().equals(stack.pop())) {
+        // 2. Comparison Logic: Remove from both ends simultaneously
+        // A palindrome must have matching front and rear characters
+        while (deque.size() > 1) {
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
+
+            if (front != rear) {
                 isPalindrome = false;
                 break;
             }
         }
 
+        // 3. Display Result
         if (isPalindrome) {
             System.out.println("The word '" + input + "' is a Palindrome.");
         } else {
