@@ -1,29 +1,26 @@
-
+/**
+ * PalindromeChecker App - UC2
+ * Implements a basic check using a hardcoded string literal.
+ */
 public class PalindromCheckerApp {
 
-    // Application metadata constants
-    private static final String APP_NAME = "Palindrome Checker";
-    private static final String APP_VERSION = "1.0.0";
-
-    /**
-     * The JVM invokes this main method to start the program.
-     * The 'static' keyword allows it to run without instantiating the class.
-     */
     public static void main(String[] args) {
-        displayWelcomeMessage();
+        // UC1: Welcome Message
+        System.out.println("--- Palindrome Checker v1.0 ---");
 
-        // Future Use Cases (UC2, UC3, etc.) will be called here
-        System.out.println("\nReady for input processing...");
-    }
+        // UC2: Hardcoded String Logic
+        String original = "madam"; // String Literal
 
-    /**
-     * Method to handle the console output for UC1.
-     */
-    private static void displayWelcomeMessage() {
-        System.out.println("========================================");
-        System.out.println("    Welcome to " + APP_NAME);
-        System.out.println("    Version: " + APP_VERSION);
-        System.out.println("========================================");
-        System.out.println("Description: Validates if a string is a palindrome.");
+        // Reverse the string using StringBuilder
+        String reversed = new StringBuilder(original).reverse().toString();
+
+        // Conditional Statement to check equality
+        if (original.equalsIgnoreCase(reversed)) {
+            System.out.println("The word '" + original + "' is a Palindrome.");
+        } else {
+            System.out.println("The word '" + original + "' is NOT a Palindrome.");
+        }
+
+        System.out.println("Program finished.");
     }
 }
