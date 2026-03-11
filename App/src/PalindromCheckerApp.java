@@ -1,26 +1,25 @@
-/**
- * PalindromeChecker App - UC2
- * Implements a basic check using a hardcoded string literal.
- */
 public class PalindromCheckerApp {
 
     public static void main(String[] args) {
-        // UC1: Welcome Message
-        System.out.println("--- Palindrome Checker v1.0 ---");
+        // Step 1: Initialize the original string literal
+        String original = "radar";
+        String reversed = ""; // Initializing an empty string to hold the result
 
-        // UC2: Hardcoded String Logic
-        String original = "madam"; // String Literal
-
-        // Reverse the string using StringBuilder
-        String reversed = new StringBuilder(original).reverse().toString();
-
-        // Conditional Statement to check equality
-        if (original.equalsIgnoreCase(reversed)) {
-            System.out.println("The word '" + original + "' is a Palindrome.");
-        } else {
-            System.out.println("The word '" + original + "' is NOT a Palindrome.");
+        // Step 2: Loop through the original string in reverse order
+        // We start at the last index (length - 1) and move to 0
+        for (int i = original.length() - 1; i >= 0; i--) {
+            // String Concatenation: Creating a new string object in each iteration
+            reversed = reversed + original.charAt(i);
         }
 
-        System.out.println("Program finished.");
+        // Step 3: Comparison using .equals()
+        // Note: We use .equals() because == compares memory addresses, not text content
+        if (original.equals(reversed)) {
+            System.out.println("Success! '" + original + "' is a palindrome.");
+        } else {
+            System.out.println("Failure! '" + original + "' is not a palindrome.");
+        }
+
+        System.out.println("Reversed string was: " + reversed);
     }
 }
